@@ -7,6 +7,7 @@ const validator=require("validator")
 const bcrypt=require("bcryptjs")
 const cookieParser=require("cookie-parser")
 const jwt=require("jsonwebtoken")
+const{userAuth}=require("./middlerware/auth")
 
 const app=express()
 
@@ -45,14 +46,14 @@ try{
         throw  new Error("Invalid credentials")
     }
 
-    const isPasswordValid= await  bcrypt.compare(password,user.password)
+    const isPasswordValid=await user.validatepassword(password)
     if(isPasswordValid){
 
         //create jwt token
-        const token=await jwt.sign({_id:user._id},"DevTinder@2003")
+        const token=await user.getJWT()
 
         //add the token to cookie and send response to user
-        res.cookie("token",token)
+        res.cookie("token",token,{expires:new Date(Date.now()+7*3600000)})
 
         res.send("Login successful!!!")
     }else{
@@ -66,23 +67,9 @@ try{
 })
 
 //profile
-app.get("/profile",async (req,res)=>{
+app.get("/profile",userAuth,async (req,res)=>{
     try{
-        const cookies=req.cookies
-        const{token}=cookies
-        if(!token){
-            throw new Error("Invalid Token")
-        }
-
-        const decodedMessage=await jwt.verify(token,"DevTinder@2003")
-        const {_id}=decodedMessage
-        console.log("Logged In user:"+_id)
-
-        const user=await User.findById(_id)
-        if(!user){
-            throw new Error("User does not exits")
-        }
-
+        const user=req.user
         res.send(user)
     }
     catch (err){
@@ -90,88 +77,16 @@ app.get("/profile",async (req,res)=>{
     }
 })
 
-//Get user emailID
-app.get("/user",async (req,res)=>{
-    const userEmail=req.body.emailId
-
-    try{
-        const user=await User.find({emailId: userEmail})
-        if (user.length===0){
-            res.status(404).send("user not found")
-        }else {
-            res.send(user)
-        }
-
-    }catch (err){
-        res.status(404).send("user not found"+err.message)
+app.post("/sendConnectionRequest",userAuth ,async (req,res)=>{
+    try {
+        const user=req.user
+        res.send(user.firstName+": send the connect request")
     }
-})
-
-//get /feed all the user from the database
-app.get("/feed",async (req,res)=>{
-
-    try{
-        const users=await User.find({})
-        res.send(users)
-
-    }catch (err){
-        res.status(404).send("user not found"+err.message)
+    catch (err){
+        res.status(404).send("connection failed")
     }
 
 })
-
-//delete the data from database
-app.delete("/user",async (req,res)=>{
-    const userId=req.body.userId
-    try{
-        const user=await User.findByIdAndDelete(userId)
-        res.send("sucessfuly delete data")
-
-    }catch (err){
-        res.status(404).send("user not found")
-    }
-})
-
-app.patch("/user/:userId",async (req,res)=>{
-    const userId=req.params?.userId
-    const data=req.body
-
-    try{
-        const  Allowed_Update=["photoUrl","about","skills","gender","age"]
-
-        const isUpdateAllowed =Object.keys(data).every((k)=>Allowed_Update.includes(k))
-        if(!isUpdateAllowed){
-            throw new Error("update not allowed")
-        }
-        if(data.skills.length>10){
-            throw new  Error("allowed only 10 skills")
-        }
-
-        const users=await User.findByIdAndUpdate(userId,data,{returnDocument:"after",runValidators:true})
-        res.send("succecfull update")
-
-    }catch (err){
-        res.status(404).send("user not found :"+err.message)
-    }
-})
-
-app.patch("/user1",async (req,res)=>{
-    const userEmailId=req.body.emailId
-    const data=req.body
-    console.log(data)
-
-    try{
-
-
-        const users=await User.findOneAndUpdate({emailId:userEmailId},data)
-        console.log(users)
-        res.send("succesfull updated ")
-
-    }catch (err){
-        res.status(404).send("user not found")
-    }
-})
-
 
 connectDB().then(()=>{
     console.log("Database connection established")
