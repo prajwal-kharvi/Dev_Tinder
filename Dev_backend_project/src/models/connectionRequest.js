@@ -1,0 +1,34 @@
+const mongoose =require("mongoose")
+
+
+const connectionRequestSchema=new mongoose.Schema({
+    fromUserId:{
+        type:mongoose.Schema.Types.ObjectId,
+        request:true,
+    },
+    toUserId:{
+        type:mongoose.Schema.Types.ObjectId,
+        request:true,
+    },
+    status:{
+        type:String,
+        enum:{
+            values:["ignore","interested","accepeted","rejected"],
+            message:`{value}is incorrect status type`,
+        },
+    },
+},{
+    timestamps:true,
+})
+
+connectionRequestSchema.index({fromUserId:1,toUserId:1})
+
+connectionRequestSchema.pre("save",function (){
+    const connectRequest=this
+    if(connectRequest.fromUserId.equals(connectRequest.toUserId)){
+        throw new Error("Cannot send connection request to yourself!!")
+    }
+})
+
+
+module.exports=mongoose.model("ConnectionRequest",connectionRequestSchema)

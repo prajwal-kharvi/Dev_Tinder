@@ -37,7 +37,6 @@ profileRouter.patch("/profile/change-password",userAuth,async (req,res)=>{
   try{
       const {oldPassword,newPassword}=req.body
       const loggedInPassword=req.user
-
       const isPasswordValid=await loggedInPassword.comparePassword(oldPassword)
 
       if(!isPasswordValid){
