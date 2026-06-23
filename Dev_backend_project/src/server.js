@@ -2,10 +2,15 @@ const express=require("express")
 require("dotenv").config()
 const connectDB=require("./config/data_base")
 const cookieParser=require("cookie-parser")
+const cors=require("cors")
 
 
 const app=express()
 
+app.use(cors({
+    origin:"http://localhost:5174",
+    credentials:true,
+}))
 app.use(express.json())
 app.use(cookieParser())
 
