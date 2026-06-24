@@ -28,18 +28,18 @@ const Login=()=>{
     }
     return(
        <div className="flex justify-center m-10">
-           <div className="card bg-base-300 w-96 shadow-sm">
+           <div className="card bg-slate-900 border border-slate-700 w-96 shadow-2xl">
                <div className="card-body">
-                   <h2 className="card-title justify-center">Login</h2>
+                   <h2 className="card-title justify-center text-slate-300 ">Login</h2>
                    <div>
-                       <label className="label my-2">Email ID</label>
+                       <label className="label my-3 text-slate-300">Email ID</label>
                        <input
                            type="text"
                            value={emailId}
                            className="input"
                            onChange={(e)=>setEmailId(e.target.value)}
                        />
-                       <label className="label my-2">Password</label>
+                       <label className="label my-3 text-slate-300">Password</label>
                        <input
                            type="text"
                            value={password}

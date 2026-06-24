@@ -1,2 +1,21 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+/*@keyframes gradient {*/
+/*    0% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*    50% {*/
+/*        background-position: 100% 50%;*/
+/*    }*/
+/*    100% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*}*/
+
+/*.animated-bg {*/
+/*    background: linear-gradient(-45deg, #d8b4fe, #c4b5fd, #f9a8d4, #ddd6fe);*/
+/*    background-size: 400% 400%;*/
+/*    animation: gradient 15s ease infinite;*/
+/*}*/

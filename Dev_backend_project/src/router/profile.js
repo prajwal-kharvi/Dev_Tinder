@@ -24,13 +24,15 @@ try{
 
     const loggedInUser=req.user
     Object.keys(req.body).forEach((key)=>loggedInUser[key]=req.body[key])
-    loggedInUser.save()
+    await loggedInUser.save()
 
     res.json({message:`${loggedInUser.firstName} your profile update successfully`,data:loggedInUser})
 }
-    catch (err){
-    res.status(400).send("ERROR :"+err.message)
-    }
+catch (err){
+    res.status(400).json({
+        message: err.message
+    });
+}
 })
 
 profileRouter.patch("/profile/change-password",userAuth,async (req,res)=>{

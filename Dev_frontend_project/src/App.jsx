@@ -7,7 +7,6 @@ import appStore from "./utils/appStore.js";
 import Feed from "./components/Feed.jsx";
 
 function App() {
-
   return (
     <>
         <Provider store={appStore}>

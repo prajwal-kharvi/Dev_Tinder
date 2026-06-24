@@ -22,32 +22,50 @@ const NavBar=()=>{
     }
 
     return(
-        <div className="navbar bg-base-300 shadow-sm">
+        <div className="navbar bg-slate-950 shadow-sm text-slate-200">
             <div className="flex-1">
                 <Link to="/"  className="btn btn-ghost text-xl"> 🧑‍💻 DevTinder</Link>
             </div>
             {user&&(
-                <div className="flex gap-2">
-                    <div className="form-control flex justify-center items-center">Welcome {user.firstName}</div>
-                    <div className="dropdown dropdown-end mx-5">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
+                <div className="flex items-center gap-4 m-4">
+                    <div className="text-slate-300 font-medium">
+                        Welcome, <span className="text-slate-100">{user.firstName}</span>
+                    </div>
+
+                    <div className="dropdown dropdown-end">
+                        <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost btn-circle avatar"
+                        >
+                            <div className="w-10 rounded-full ring ring-slate-600 ring-offset-2 ring-offset-slate-950">
                                 <img
-                                    alt="user Photo"
-                                    src={user.photoUrl} />
+                                    alt="User Photo"
+                                    src={user.photoUrl}
+                                />
                             </div>
                         </div>
+
                         <ul
-                            tabIndex="-1"
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content mt-3 w-52 rounded-xl bg-slate-800 border border-slate-700 shadow-xl"
+                        >
                             <li>
-                                <Link to="/profile" className="justify-between">
+                                <Link to="/profile">
                                     Profile
-                                    <span className="badge">New</span>
+                                    <span className="badge badge-primary">New</span>
                                 </Link>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a onClick={handleLogout}>Logout</a></li>
+
+                            <li>
+                                <a>Settings</a>
+                            </li>
+
+                            <li>
+                                <a onClick={handleLogout} className="text-error">
+                                    Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
