@@ -1,5 +1,5 @@
-const card=({data,showRequestButton=false})=>{
-    const{firstName,lastName,age,gender,photoUrl,about}=data
+const card=({data,showRequestButton=false,onAccept,onReject})=>{
+    const{_id,firstName,lastName,age,gender,photoUrl,about}=data
 
     return(
         <div className="card bg-slate-900 border border-slate-700 shadow-2xl text-slate-200 w-full max-w-3xl">
@@ -24,9 +24,9 @@ const card=({data,showRequestButton=false})=>{
                         {about}
                     </p>
                     {showRequestButton && <div className="card-actions justify-end mt-auto">
-                        <button className="btn btn-error">Reject</button>
+                        <button className="btn btn-error" onClick={()=>onReject(_id)}>Reject</button>
 
-                        <button className="btn btn-success">Accept</button>
+                        <button className="btn btn-success"onClick={()=>onAccept(_id)}>Accept</button>
 
                     </div>}
                 </div>

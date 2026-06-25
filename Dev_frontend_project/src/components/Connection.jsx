@@ -23,7 +23,7 @@ useEffect(()=>{
 
     if(!connections) return ;
 
-    if(connections.length===0) return <h1>No Connection Found</h1>
+    if(connections.length===0) return <h1 className="flex justify-center text-white text-2xl  my-10">No Connection Found</h1>
 
 
     return(

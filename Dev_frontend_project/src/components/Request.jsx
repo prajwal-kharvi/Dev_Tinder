@@ -2,12 +2,23 @@ import axios from "axios";
 import {BASE_URL} from "../utils/constants.js";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addRequests} from "../utils/requestSlice.js";
+import {addRequests, removeRequests} from "../utils/requestSlice.js";
 import ConnectionCard from "./Card.jsx";
 
 const Request=()=>{
     const requests=useSelector((store)=>store.request)
     const dispatch=useDispatch()
+
+    const reviewRequest=async (status,_id)=>{
+        try {
+            await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
+            dispatch(removeRequests(_id))
+
+        }catch (err){
+            console.log(err.message)
+        }
+
+    }
 
     const fetchRequest=async ()=>{
 
@@ -26,7 +37,7 @@ const Request=()=>{
 
     if(!requests)return ;
 
-    if(requests.length===0)return <h1>No Request Found</h1>
+    if(requests.length===0)return <h1 className="flex justify-center text-white text-2xl my-10">No Request Found</h1>
 
     return(
         <div>
@@ -38,6 +49,8 @@ const Request=()=>{
                         key={request._id}
                         data={request.fromUserId}
                         showRequestButton={true}
+                        onAccept={()=>reviewRequest("accepted",request._id)}
+                        onReject={()=>reviewRequest("rejected",request._id)}
                     />
                 ))}
             </div>
