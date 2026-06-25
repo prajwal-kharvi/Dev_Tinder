@@ -58,7 +58,12 @@ const NavBar=()=>{
                             </li>
 
                             <li>
-                                <a>Settings</a>
+                                <Link to="/connection
+                                ">Connection</Link>
+                            </li>
+                            <li>
+                                <Link to="/request
+                                ">Request</Link>
                             </li>
 
                             <li>
