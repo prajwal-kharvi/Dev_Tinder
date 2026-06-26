@@ -39,10 +39,7 @@ const NavBar=()=>{
                             className="btn btn-ghost btn-circle avatar"
                         >
                             <div className="w-10 rounded-full ring ring-slate-600 ring-offset-2 ring-offset-slate-950">
-                                <img
-                                    alt="User Photo"
-                                    src={user.photoUrl}
-                                />
+                                <img alt="User Photo" src={user.photoUrl}/>
                             </div>
                         </div>
 
@@ -58,12 +55,10 @@ const NavBar=()=>{
                             </li>
 
                             <li>
-                                <Link to="/connection
-                                ">Connection</Link>
+                                <Link to="/connection">Connection</Link>
                             </li>
                             <li>
-                                <Link to="/request
-                                ">Request</Link>
+                                <Link to="/request">Request</Link>
                             </li>
 
                             <li>
