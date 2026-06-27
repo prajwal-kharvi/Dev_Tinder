@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import UserCard from "./UserCard.jsx";
 import axios from "axios";
 import {BASE_URL} from "../utils/constants.js";
@@ -32,33 +32,37 @@ const EditProfile=({user})=>{
             setError(err?.response?.data?.message)
         }
     }
+
+    useEffect(() => {
+        console.log("showToast:", showToast);
+    }, [showToast]);
     return(
         <>
-            <div className="flex justify-center gap-10 my-10 items-start">
+            <div className="flex justify-center  gap-16 px-6  items-start">
                 <div >
-                    <div className="card w-96 h-[720px] bg-slate-900 border border-slate-700 shadow-2xl">
-                        <div className="card-body">
-                            <h2 className="card-title justify-center text-slate-100 text-3xl mb-4">Edit Profile</h2>
+                    <div className="card w-96 h-[720px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl transition-all duration-300 hover:border-indigo-500 hover:shadow-indigo-500/20">
+                        <div className="card-body p-8">
+                            <h2 className="card-title justify-center text-slate-100 text-3xl mb-4">👨‍💻Edit Profile</h2>
                             <div>
                                 <label className="label my-2 text-slate-300">First Name</label>
                                 <input
-                                    type="text"
+                                    type="text "
                                     value={firstName}
-                                    className="input"
+                                    className="input w-full bg-slate-700 border border-slate-600 text-white focus:border-indigo-500"
                                     onChange={(e)=>setFirstName(e.target.value)}
                                 />
                                 <label className="label my-2 text-slate-300">Last Name</label>
                                 <input
                                     type="text"
                                     value={lastName}
-                                    className="input"
+                                    className="input w-full bg-slate-700 border border-slate-600 text-white focus:border-indigo-500"
                                     onChange={(e)=>setLastName(e.target.value)}
                                 />
                                 <label className="label my-2 text-slate-300">Photo Url</label>
                                 <input
                                     type="text"
                                     value={photoUrl}
-                                    className="input"
+                                    className="input w-full bg-slate-700 border border-slate-600 text-white focus:border-indigo-500"
                                     onChange={(e)=>setPhotoUrl(e.target.value)}
                                 />
                                 <label className="label my-2 text-slate-300">Age</label>
@@ -67,13 +71,13 @@ const EditProfile=({user})=>{
                                     min="18"
                                     max="100"
                                     placeholder="Enter your age"
-                                    className="input"
+                                    className="input w-full bg-slate-700 border border-slate-600 text-white focus:border-indigo-500"
                                     value={age}
                                     onChange={(e) => setAge(e.target.value)}
                                 />
                                 <label className="label my-2 text-slate-300">Gender</label>
                                 <select
-                                    className="select "
+                                    className="select w-full bg-slate-700 border border-slate-600 text-white focus:border-indigo-500 "
                                     value={gender}
                                     onChange={(e) => setGender(e.target.value)}
                                 >
@@ -84,7 +88,7 @@ const EditProfile=({user})=>{
                                 </select>
                                 <label className="label my-2 text-slate-300">About</label>
                                 <textarea
-                                    className="textarea"
+                                    className="textarea w-full bg-slate-700 border border-slate-600 text-white focus:border-indigo-500 h-28 resize-none"
                                     placeholder="Tell other developers about yourself..."
                                     value={about}
                                     onChange={(e) => setAbout(e.target.value)}
@@ -92,7 +96,8 @@ const EditProfile=({user})=>{
                             </div>
                             <p className="text-red-500">{error}</p>
                             <div className="card-actions justify-center mt-6">
-                                <button className="btn btn-primary w-full" onClick={saveProfile}>Save Profile</button>
+                                <button className="btn w-full bg-indigo-500 hover:bg-indigo-600 border-none text-white transition-all duration-300 hover:scale-[1.02]"
+                                        onClick={saveProfile}>💾 Save Profile</button>
                             </div>
                         </div>
                     </div>
@@ -100,9 +105,9 @@ const EditProfile=({user})=>{
                 <UserCard user={{firstName,lastName,age,gender,photoUrl,about}}/>
             </div>
             {showToast&&(
-                <div className="toast toast-top toast-center">
+                <div className="toast toast-top toast-center fixed z-[9999]">
                     <div className="alert alert-success">
-                        <span>Profile saved successfully.</span>
+                        <span>✅ Profile saved successfully.</span>
                     </div>
                 </div>
             )}

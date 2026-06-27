@@ -1,5 +1,5 @@
 import NavBar from "./NavBar.jsx";
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import Footer from "./Footer.jsx";
 import axios from "axios";
 import {BASE_URL} from "../utils/constants.js";
@@ -10,6 +10,7 @@ import {useEffect} from "react";
 const Body=()=>{
     const dispatch=useDispatch()
     const navigate=useNavigate()
+    const location=useLocation()
     const userData=useSelector((store)=>store.user)
 
     const fetchUser=async ()=>{
@@ -26,16 +27,21 @@ const Body=()=>{
         }
     }
 
+    const hideLayout=location.pathname==="/login"
+
     useEffect(()=>{
         fetchUser()
     },[])
 
     return(
-        <div>
-            <NavBar/>
-            <Outlet/>
-            <Footer/>
-        </div>
+        <>
+            {!hideLayout && <NavBar/>}
+            <div className={!hideLayout ?"pt-20 pb-20":""}>
+                <Outlet/>
+            </div>
+            {!hideLayout && <Footer/>}
+        </>
+
     )
 }
 

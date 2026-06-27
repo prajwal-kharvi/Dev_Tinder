@@ -3,7 +3,8 @@ import {BASE_URL} from "../utils/constants.js";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addRequests, removeRequests} from "../utils/requestSlice.js";
-import ConnectionCard from "./Card.jsx";
+import Card from "./Card.jsx";
+import EmptyState from "./EmptyState.jsx";
 
 const Request=()=>{
     const requests=useSelector((store)=>store.request)
@@ -37,15 +38,15 @@ const Request=()=>{
 
     if(!requests)return ;
 
-    if(requests.length===0)return <h1 className="flex justify-center text-white text-2xl my-10">No Request Found</h1>
+    if(requests.length===0)return (<EmptyState   icon="📨" title="No Pending Requests" message="You're all caught up. New connection requests will appear here."/>)
 
     return(
         <div>
-            <h1 className="text-3xl font-bold text-center text-white my-6">Request</h1>
+            <h1 className="text-4xl font-bold text-center text-white my-8">📨 Connection Requests</h1>
 
             <div className="flex flex-col items-center gap-4">
                 {requests.map((request) => (
-                    <ConnectionCard
+                    <Card
                         key={request._id}
                         data={request.fromUserId}
                         showRequestButton={true}

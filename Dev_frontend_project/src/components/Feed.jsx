@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addFeed} from "../utils/feedSlice.js";
 import {useEffect} from "react";
 import UserCard from "./UserCard.jsx";
+import EmptyState from "./EmptyState.jsx";
 
 const Feed=()=>{
     const feed=useSelector((store)=>store.feed)
@@ -29,7 +30,7 @@ const Feed=()=>{
 
     if(!feed)return
 
-    if (feed.length<=0)return <h1 className="flex justify-center text-white text-2xl my-10">NO New User Found!!!</h1>
+    if (feed.length<=0)return (<EmptyState icon="🔍" title=" No New Developers Found" message="You've explored everyone for now. Check back later!"/>)
 
     return(
         feed &&(

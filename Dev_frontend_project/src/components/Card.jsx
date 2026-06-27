@@ -2,49 +2,52 @@ const card=({data,showRequestButton=false,onAccept,onReject})=>{
     const{_id,firstName,lastName,age,gender,photoUrl,about}=data
 
     return(
-        <div className="card bg-slate-900 border border-slate-700 shadow-2xl text-slate-200 w-full max-w-3xl mx-auto">
+        <div className="card w-full max-w-3xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:border-indigo-500 hover:shadow-indigo-500/20">
             <div className="flex flex-col md:flex-row">
 
                 <img
                     src={photoUrl}
                     alt="Profile"
-                    className="w-full h-56 md:w-48 md:h-auto object-cover"
+                    className="w-full h-56 md:w-52 md:h-auto object-cover"
                 />
 
-                <div className="card-body text-center md:text-left">
-                    <h2 className="card-title text-2xl justify-center md:justify-start">
+                <div className="card-body">
+
+                    <h2 className="text-2xl font-bold text-white">
                         {firstName} {lastName}
                     </h2>
 
                     {age && gender && (
-                        <div className="badge badge-primary badge-outline w-fit mx-auto md:mx-0">
-                            {age}, {gender}
+                        <div className="badge bg-indigo-500 text-white border-none w-fit">
+                            {age} • {gender}
                         </div>
                     )}
 
-                    <p className="text-slate-400">
+                    <p className="text-slate-400 leading-7 mt-3">
                         {about}
                     </p>
 
                     {showRequestButton && (
-                        <div className="card-actions flex-col sm:flex-row justify-center md:justify-end mt-auto">
+                        <div className="card-actions justify-end gap-4 mt-6">
+
                             <button
-                                className="btn btn-error w-full sm:w-auto"
+                                className="btn btn-outline border-red-500 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105"
                                 onClick={() => onReject(_id)}
                             >
-                                Reject
+                                ❌ Reject
                             </button>
 
                             <button
-                                className="btn btn-success w-full sm:w-auto"
+                                className="btn bg-indigo-500 hover:bg-indigo-600 border-none text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/40"
                                 onClick={() => onAccept(_id)}
                             >
-                                Accept
+                                ✅ Accept
                             </button>
+
                         </div>
                     )}
-                </div>
 
+                </div>
             </div>
         </div>
 
