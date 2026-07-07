@@ -18,8 +18,15 @@ authRouter.post("/signup",async (req,res)=>{
 
 //creating a new instance od the user model
         const user= new User({firstName,lastName,emailId,password:passwordHash })
-        await user.save()
-        res.send("user added successfully")
+        const savedUser=await user.save()
+
+        //create jwt token
+        const token=await savedUser.getJWT()
+
+        //add the token to cookie and send response to user
+        res.cookie("token",token,{expires:new Date(Date.now()+7*3600000)})
+
+        res.json({message:"user added successfully",data:savedUser})
     }catch (err){
         res.status(400).send("ERROR :"+err.message)
     }
