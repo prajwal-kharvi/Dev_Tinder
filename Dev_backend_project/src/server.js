@@ -4,16 +4,18 @@ const connectDB=require("./config/data_base")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
 
-
 const app=express()
 
 app.use(cors({
-    origin:[
+    origin: [
         "http://localhost:5174",
         "http://localhost:5173",
+        "https://devtinder.dpdns.org",
     ],
-    credentials:true,
-}))
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json())
 app.use(cookieParser())
 
@@ -22,12 +24,10 @@ const profileRouter=require("./router/profile")
 const requestRouter=require("./router/request")
 const userRouter=require("./router/user")
 
-
 app.use("/",authRouter)
 app.use("/",profileRouter)
 app.use("/",requestRouter)
 app.use("/",userRouter)
-
 
 
 connectDB().then(()=>{
