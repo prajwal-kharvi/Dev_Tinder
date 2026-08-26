@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Card = ({ data, showRequestButton = false, onAccept, onReject }) => {
+const Card = ({ data, showRequestButton = false,showChatButton = false, onAccept, onReject }) => {
     const {
         _id,
         firstName,
@@ -58,13 +58,15 @@ const Card = ({ data, showRequestButton = false, onAccept, onReject }) => {
                             </>
                         )}
 
-                        <Link to={`/chat/${_id}`}>
-                            <button
-                                className="btn bg-emerald-500 hover:bg-emerald-600 border-none text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/40"
-                            >
-                                💬 Chat
-                            </button>
-                        </Link>
+                        {showChatButton && (
+                            <Link to={`/chat/${_id}`}>
+                                <button
+                                    className="btn bg-emerald-500 hover:bg-emerald-600 border-none text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-emerald-500/40"
+                                >
+                                    💬 Chat
+                                </button>
+                            </Link>
+                        )}
 
                     </div>
 

@@ -18,8 +18,9 @@ userRouter.get("/user/requests/received",userAuth,async (req,res)=>{
 
         res.json({message:"Data fetch successfully",connectionRequest})
 
-    }catch (err){
-        res.status(404).send("ERROR :"+err.message)
+    }catch (err) {
+        console.error("Request error:", err);
+        res.status(500).send("ERROR: " + err.message);
     }
 })
 
@@ -34,16 +35,20 @@ userRouter.get("/user/connection",userAuth,async (req,res)=>{
             ]
         }).populate("fromUserId",User_Safe_Data).populate("toUserId",User_Safe_Data)
 
-        const data=connectionRequests.map((row)=>{
-            if(row.fromUserId._id.toString()===loggedInUser._id.toString()){
-                return row.toUserId
-            }
-            return row.fromUserId
-        })
+        const data = connectionRequests
+            .filter((row) => row.fromUserId && row.toUserId)
+            .map((row) => {
+                if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
+                    return row.toUserId;
+                }
 
+                return row.fromUserId;
+            });
         res.json({data})
-    }catch (err){
-        res.status(404).send("ERROR :"+err.message)
+    }catch (err) {
+        console.error("Connection error:", err);
+
+        res.status(500).send("ERROR: " + err.message);
     }
 })
 
@@ -81,8 +86,9 @@ userRouter.get("/feed",userAuth,async (req,res)=>{
 
         res.send(users)
 
-    }catch (err){
-        res.status(404).send("ERROR"+err.message)
+    }catch (err) {
+        console.error("Feed error:", err);
+        res.status(500).send("ERROR: " + err.message);
     }
 })
 

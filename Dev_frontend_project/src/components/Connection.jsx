@@ -36,6 +36,7 @@ useEffect(()=>{
                     <Card
                         key={connection._id}
                         data={connection}
+                        showChatButton={true}
                     />
                 ))}
             </div>

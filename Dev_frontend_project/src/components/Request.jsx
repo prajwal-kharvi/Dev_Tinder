@@ -50,6 +50,7 @@ const Request=()=>{
                         key={request._id}
                         data={request.fromUserId}
                         showRequestButton={true}
+                        showChatButton={false}
                         onAccept={()=>reviewRequest("accepted",request._id)}
                         onReject={()=>reviewRequest("rejected",request._id)}
                     />

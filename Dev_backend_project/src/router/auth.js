@@ -28,7 +28,7 @@ authRouter.post("/signup",async (req,res)=>{
             expires: new Date(Date.now() + 7 * 3600000),
             httpOnly: true,
             secure: true,
-            sameSite: "lax"
+            sameSite: "none"
         })
 
         res.json({message:"user added successfully",data:savedUser})
@@ -63,7 +63,7 @@ authRouter.post("/login",async (req,res)=>{
                 expires: new Date(Date.now() + 7 * 3600000),
                 httpOnly: true,
                 secure: true,
-                sameSite: "lax"
+                sameSite: "none"
             })
 
             res.send(user)
@@ -83,7 +83,7 @@ authRouter.post("/logout",async (req,res)=>{
         expires: new Date(Date.now()),
         httpOnly: true,
         secure: true,
-        sameSite: "lax"
+        sameSite: "none"
     })
     res.send("logout successfully")
 })

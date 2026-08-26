@@ -27,6 +27,10 @@ const userRouter=require("./router/user")
 const chatRouter=require("./router/chat")
 const initializeSocket=require("./util/socket")
 
+app.get("/test", (req, res) => {
+    res.send("Server is working");
+});
+
 app.use("/",authRouter)
 app.use("/",profileRouter)
 app.use("/",requestRouter)
