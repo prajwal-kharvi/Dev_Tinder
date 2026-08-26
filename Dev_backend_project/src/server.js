@@ -3,6 +3,7 @@ require("dotenv").config()
 const connectDB=require("./config/data_base")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
+const http=require("http")
 
 const app=express()
 
@@ -23,16 +24,22 @@ const authRouter=require("./router/auth")
 const profileRouter=require("./router/profile")
 const requestRouter=require("./router/request")
 const userRouter=require("./router/user")
+const chatRouter=require("./router/chat")
+const initializeSocket=require("./util/socket")
 
 app.use("/",authRouter)
 app.use("/",profileRouter)
 app.use("/",requestRouter)
 app.use("/",userRouter)
+app.use("/",chatRouter)
+
+const server=http.createServer(app)
+initializeSocket(server)
 
 
 connectDB().then(()=>{
     console.log("Database connection established")
-    app.listen(7777,()=>{
+    server.listen(7777,()=>{
         console.log("Server is running on port 7777")
     })
 })
