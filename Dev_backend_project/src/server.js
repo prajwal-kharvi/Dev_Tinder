@@ -12,6 +12,7 @@ app.use(cors({
         "http://localhost:5174",
         "http://localhost:5173",
         "https://devtinder.dpdns.org",
+        "https://devtinder-frontend-7ngotwc6j-prajwal-kharvis-projects.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
