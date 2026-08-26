@@ -25,8 +25,6 @@ const initializeSocket=(server)=>{
         const onlineUsers = new Map();
         //Handle events
 
-        io.on("connection", (socket) => {
-
             socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
 
                 const roomId = getSecretRoomId(
@@ -61,8 +59,6 @@ const initializeSocket=(server)=>{
                     userId
                 });
             });
-
-        });
 
         socket.on("sendMessage", async ({ firstName, userId, targetUserId, text }) => {
             try {
