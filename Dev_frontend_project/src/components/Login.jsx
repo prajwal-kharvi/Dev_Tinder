@@ -23,7 +23,9 @@ const Login=()=>{
             },{
                 withCredentials:true,
             })
+            console.log(res.data)
             dispatch(addUser(res.data))
+
             return navigate("/")
         }catch(err){
                 setError(err?.response?.data || "something went wrong!!!")

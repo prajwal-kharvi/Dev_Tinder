@@ -51,6 +51,9 @@ userRouter.get("/feed",userAuth,async (req,res)=>{
     try{
         const loggedInUser=req.user
 
+        // console.log("COOKIES RECEIVED:", req.cookies);
+        // console.log("TOKEN RECEIVED:", req.cookies.token);
+
         const page=parseInt(req.query.page) ||1
         let limit=parseInt(req.query.limit)||10
         limit=limit>50?50:limit
